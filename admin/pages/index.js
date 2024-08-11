@@ -7,6 +7,10 @@ export default function Home() {
         Login with Google
       </button>
     </div>
+
+    <div>
+      New laptop
+    </div>
     
   </div>
  )
