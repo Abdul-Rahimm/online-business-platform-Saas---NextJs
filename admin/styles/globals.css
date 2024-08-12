@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+  @apply text-blue-900 text-xl mb-2 font-semibold;
+}
+
+input,
+textarea {
+  @apply border-2 border-gray-300 w-full p-1 rounded-md mb-2;
+}
+
+input:focus,
+textarea:focus {
+  @apply border-blue-900;
+}
+
+label {
+  @apply text-blue-900;
+}
+
+.btn-primary {
+  @apply text-white bg-blue-900 px-4 rounded-md py-1;
+}
