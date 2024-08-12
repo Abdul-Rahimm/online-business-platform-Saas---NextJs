@@ -1,16 +1,25 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
+import { RedirectType, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function NewProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
+  const [redirect, setRedirect] = useState(false);
+  const router = useRouter();
 
   async function createProduct(event) {
     event.preventDefault();
     const data = { title, description, price };
     await axios.post("/api/products", data);
+    //redirect to products page
+    setRedirect(true);
+  }
+
+  if (redirect) {
+    router.push("/products");
   }
 
   return (
