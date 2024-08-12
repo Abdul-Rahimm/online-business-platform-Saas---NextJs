@@ -1,3 +1,4 @@
+import Nav from "@/components/nav";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Home() {
@@ -19,15 +20,10 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-blue-900 w-screen h-screen flex items-center">
-      <div className="text-center w-full">
-        <div className="text-white py-2">Logged In {session.user.name}</div>
-        <button
-          className="bg-white p-2 px-4 rounded-md"
-          onClick={() => signOut()}
-        >
-          signOut
-        </button>
+    <div className="bg-blue-900 min-h-screen flex">
+      <Nav />
+      <div className="bg-white flex-grow mt-2 mr-2 mb-2 rounded-lg p-4 ">
+        Logged In {session.user.name}
       </div>
     </div>
   );
