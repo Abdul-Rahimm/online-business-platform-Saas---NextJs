@@ -47,9 +47,7 @@ export default function ProductForm({
       }
 
       //this endpoint is just going to give us links to the images after we have uploaded them
-      const res = await axios.post("/api/upload", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await axios.post("/api/upload", data);
 
       //we will grab the data from the response
       console.log(res.data);

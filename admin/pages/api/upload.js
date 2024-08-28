@@ -1,4 +1,8 @@
 import multiparty from "multiparty";
+import {PutObjectCommand, S3Client} from '@aws-sdk/client-s3'
+import fs from 'fs';
+import mime from 'mime-types'
+const bucketName = 'next-ecommerce-rahim';
 
 export default async function handle(req, res) {
   //we want to tell nextJS not to parse our req
@@ -14,8 +18,34 @@ export default async function handle(req, res) {
     });
   });
 
-  console.log("Length : ", files.file.length);
-  return res.json("ok");
+  const client = new S3Client({
+    region: 'us-east-1',
+    credentials:{
+      accessKeyId: process.env.S3_ACCESS_KEY,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    }
+  })
+  console.log("Length : ", files);
+
+  const LinksArray = []
+  for (const file of files.file){
+    const ext = file.originalFilename.split('.').pop();
+    const newFileName = Date.now() + '.' + ext;
+
+    await client.send(new PutObjectCommand({
+      Bucket: bucketName,
+      Key: newFileName,
+      Body: fs.readFileSync(file.path),
+      ACL: 'public-read',
+      ContentType: mime.lookup(file.path),
+    }))
+
+    //as a respomse we wanna grab the link of the uploaded file
+    const link = `https://${bucketName}.s3.amazonaws.com/${newFileName}`;
+    LinksArray.push(link)
+  }
+
+  return res.json({LinksArray});
 }
 
 // this will not parse our request to JSON
