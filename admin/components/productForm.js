@@ -7,17 +7,19 @@ export default function ProductForm({
   title: existingTitle,
   description: existingDescription,
   price: existingPrice,
-  images,
+  images: existingImages,
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [redirect, setRedirect] = useState(false);
+  const [images, setImages] = useState(existingImages || [])
+
   const router = useRouter();
 
   async function saveProduct(event) {
     event.preventDefault();
-    const data = { title, description, price };
+    const data = { title, description, price, images };
 
     if (_id) {
       //updating a product
@@ -48,9 +50,10 @@ export default function ProductForm({
 
       //this endpoint is just going to give us links to the images after we have uploaded them
       const res = await axios.post("/api/upload", data);
-
-      //we will grab the data from the response
-      console.log(res.data);
+      // console.log("response data : ", res.data)
+      setImages(oldImages => {
+        return [...oldImages, ...res.data.LinksArray];
+      })
     }
   }
 
@@ -65,7 +68,13 @@ export default function ProductForm({
       />
 
       <label>Photos</label>
-      <div className="mb-2">
+      <div className="mb-2 flex flex-wrap gap-2">
+        {/* images are displayed below */}
+        {!!images?.length && images.map(link => (
+          <div key={link} className="h-24">
+            <img src={link} alt="Image" className="rounded-lg"/>
+          </div>
+        ))}
         <label className="w-24 h-24 border flex justify-center items-center cursor-pointer text-gray-400 gap-1 rounded-lg bg-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -84,8 +93,6 @@ export default function ProductForm({
           <div>Upload</div>
           <input type="file" className="hidden" onChange={uploadImages} />
         </label>
-
-        {!images?.length && <div>No Photos</div>}
       </div>
 
       <label>Description</label>
