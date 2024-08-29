@@ -1,6 +1,8 @@
 import axios from "axios";
-import { RedirectType, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Spinner from "@/components/spinner";
+import { ReactSortable } from "react-sortablejs";
 
 export default function ProductForm({
   _id,
@@ -13,7 +15,8 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [redirect, setRedirect] = useState(false);
-  const [images, setImages] = useState(existingImages || [])
+  const [images, setImages] = useState(existingImages || []);
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   const router = useRouter();
 
@@ -39,8 +42,10 @@ export default function ProductForm({
 
   async function uploadImages(event) {
     const files = event.target?.files;
+    //The Icon should show when the image is being uploaded
 
     if (files?.length > 0) {
+      setIsImageUploading(true);
       //need to send as form data
       const data = new FormData();
 
@@ -50,11 +55,18 @@ export default function ProductForm({
 
       //this endpoint is just going to give us links to the images after we have uploaded them
       const res = await axios.post("/api/upload", data);
-      // console.log("response data : ", res.data)
-      setImages(oldImages => {
+
+      setImages((oldImages) => {
         return [...oldImages, ...res.data.LinksArray];
-      })
+      });
+
+      //image has been uploaded
+      setIsImageUploading(false);
     }
+  }
+
+  function updateImagesOrder(images) {
+    setImages(images);
   }
 
   return (
@@ -70,11 +82,26 @@ export default function ProductForm({
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-2">
         {/* images are displayed below */}
-        {!!images?.length && images.map(link => (
-          <div key={link} className="h-24">
-            <img src={link} alt="Image" className="rounded-lg"/>
+
+        <ReactSortable
+          list={images}
+          setList={updateImagesOrder}
+          className="flex flex-wrap gap-1"
+        >
+          {!!images?.length &&
+            images.map((link) => (
+              <div key={link} className="h-24">
+                <img src={link} alt="Image" className="rounded-lg" />
+              </div>
+            ))}
+        </ReactSortable>
+
+        {isImageUploading && (
+          <div className="h-24 flex items-center">
+            <Spinner />
           </div>
-        ))}
+        )}
+
         <label className="w-24 h-24 border flex justify-center items-center cursor-pointer text-gray-400 gap-1 rounded-lg bg-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
