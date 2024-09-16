@@ -8,6 +8,7 @@ export default function Categories() {
       <label>Category</label>
       <div className="flex">
         <input type="text" placeholder="Category Name" />
+        <button className="btn-primary">Save</button>
       </div>
     </Layout>
   );
