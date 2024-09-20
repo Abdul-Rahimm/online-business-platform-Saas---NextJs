@@ -3,10 +3,9 @@ import ReactLoading from "react-loading";
 
 const Dynamic = () => {
   const URL = "https://api.eatachi.co/api/country";
-  //   const URL2 = `https://api.eatachi.co/api/city/bycountry/${countryID}`;
+  // const URL2 = `https://api.eatachi.co/api/city/bycountry/${countryID}`;
 
   const [countryID, setCountryID] = useState(4);
-
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -56,8 +55,12 @@ const Dynamic = () => {
 
       {loading && <p className="text-4xl">...Loading</p>}
 
-      <div>
-        <h1>Cities</h1>
+      <div className="text-center">
+        <h1>
+          {"Cities " +
+            cities.filter((c) => c.Name.toLowerCase().startsWith(filter))
+              .length}
+        </h1>
         {cities
           .filter((c) => c.Name.toLowerCase().startsWith(filter))
           .map((city, index) => (
