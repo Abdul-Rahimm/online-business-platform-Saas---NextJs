@@ -45,7 +45,7 @@ export default function Uni() {
         <Hardcoded topics={topics} />
       </div>
 
-      <div className="flex-1 bg-black-100">
+      <div className="flex-1 bg-gray-100">
         <Learning People={People} />
       </div>
     </div>
