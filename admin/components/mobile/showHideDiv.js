@@ -5,7 +5,7 @@ const ShowHideDiv = ({ data, name }) => {
   return (
     <div>
       <button
-        className="text-lg font-semibold bg-blue-500 m-4 py-2 px-4 rounded-xl text-white hover:bg-blue-600 duration-300"
+        className="text-lg focus:bg-blue-600 font-semibold bg-blue-500 m-4 py-2 px-4 rounded-xl text-white hover:bg-blue-600 duration-300"
         onClick={() => {
           setShow(!show);
         }}

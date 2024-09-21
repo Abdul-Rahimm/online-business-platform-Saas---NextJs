@@ -23,7 +23,7 @@ const Learning = () => {
   }, [selectedCountry]);
 
   console.log("specific data ", selectedCountryData);
-  console.log("currency data ", Object.entries(selectedCountryData.currencies));
+  // console.log("currency data ", Object.entries(selectedCountryData.currencies));
 
   return (
     <div>
@@ -41,22 +41,24 @@ const Learning = () => {
       </div>
 
       <div className="">
-        <div className=" flex justify-center m-3">
-          <Image
-            src={selectedCountryData?.flags?.png}
-            alt="Image"
-            width={200}
-            height={200}
-            className="border-black border-2"
-            priority={true}
-          />
+        <div className="flex justify-center m-3">
+          <button className="focus:shadow-2xl">
+            <Image
+              src={selectedCountryData?.flags?.png}
+              alt="Image"
+              height={200}
+              width={200}
+              className="border-black border-2"
+              priority={true}
+            />
+          </button>
         </div>
 
         {/* working on the for each below */}
         <div className="bg-gray-300 grid grid-cols-4 text-center py-2">
           <ul>
             <span className="heading">Capital: </span>
-            {selectedCountryData.capital[0]}
+            {selectedCountryData && selectedCountryData.capital[0]}
           </ul>
           <ul>
             <span className="heading">
