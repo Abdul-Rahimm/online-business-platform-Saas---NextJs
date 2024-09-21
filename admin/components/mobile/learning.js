@@ -22,12 +22,12 @@ const Learning = () => {
     loadSpecificCountryData(selectedCountry, setSelectedCountryData);
   }, [selectedCountry]);
 
-  const hello = selectedCountryData;
-  console.log("specific data ", hello);
+  console.log("specific data ", selectedCountryData);
+  console.log("currency data ", Object.entries(selectedCountryData.currencies));
 
   return (
     <div>
-      <div>
+      <div className="text-center">
         <label className="text-2xl mr-4 m-2">Countries</label>
         <select onChange={(event) => setselectedCountry(event.target.value)}>
           {countries
@@ -43,7 +43,7 @@ const Learning = () => {
       <div className="">
         <div className=" flex justify-center m-3">
           <Image
-            src={selectedCountryData[0]?.flags.png}
+            src={selectedCountryData?.flags?.png}
             alt="Image"
             width={200}
             height={200}
@@ -53,26 +53,50 @@ const Learning = () => {
         </div>
 
         {/* working on the for each below */}
-        <div className="bg-gray-300 grid grid-cols-4">
+        <div className="bg-gray-300 grid grid-cols-4 text-center py-2">
           <ul>
-            {Object.entries(selectedCountryData)[0].forEach((item) => (
-              <li>{item}</li>
-            ))}
+            <span className="heading">Capital: </span>
+            {selectedCountryData.capital[0]}
+          </ul>
+          <ul>
+            <span className="heading">
+              {selectedCountryData.capital[0]} latitude:{" "}
+            </span>
+            {selectedCountryData.capitalInfo.latlng[0]}
+          </ul>
+          <ul>
+            <span className="heading">
+              {selectedCountryData.capital[0]} longitude:{" "}
+            </span>
+            {selectedCountryData.capitalInfo.latlng[1]}
+          </ul>
+          <ul>
+            Drive car at{" "}
+            <span className="heading">{selectedCountryData.car.side}</span> side
           </ul>
         </div>
 
-        <div className="bg-gray-200 grid grid-cols-2 text-center">
+        <div className="bg-gray-200 grid grid-cols-4 text-center">
           <ShowHideDiv
-            data={selectedCountryData[0]?.borders}
-            name={"Borders"}
+            data={selectedCountryData?.altSpellings}
+            name={"Names"}
           />
+          <ShowHideDiv data={selectedCountryData?.borders} name={"Borders"} />
+
           <ShowHideDiv
             data={
-              selectedCountryData[0]?.languages &&
-              Object.values(selectedCountryData[0]?.languages)
+              selectedCountryData?.languages &&
+              Object.values(selectedCountryData?.languages)
             }
             name={"Languages"}
           />
+
+          <ShowHideDiv
+            data={selectedCountryData.continents}
+            name={"Continents"}
+          />
+
+          {/* <ShowHideDiv data={selectedCountryData.currencies}/> */}
         </div>
       </div>
     </div>

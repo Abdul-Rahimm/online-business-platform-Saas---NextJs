@@ -39,7 +39,7 @@ async function loadSpecificCountryData(
     await fetch(specificCountryURL)
       .then((response) => response.json())
       .then((data) => {
-        setSelectedCountryData(data);
+        setSelectedCountryData(data[0]);
       });
   }
 }

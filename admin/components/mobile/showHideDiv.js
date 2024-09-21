@@ -5,17 +5,19 @@ const ShowHideDiv = ({ data, name }) => {
   return (
     <div>
       <button
-        className="text-2xl font-semibold bg-blue-500 m-4 py-2 px-4 rounded-xl text-white hover:bg-blue-600 duration-300"
+        className="text-lg font-semibold bg-blue-500 m-4 py-2 px-4 rounded-xl text-white hover:bg-blue-600 duration-300"
         onClick={() => {
           setShow(!show);
         }}
       >
-        Show/Hide {name}
+        {name}
       </button>
       {show && (
         <ul>
           {data?.map((item, index) => (
-            <li key={index}>{index + 1 + ". " + item}</li>
+            <li key={index} className="text-sm">
+              {index + 1 + ". " + item}
+            </li>
           ))}
         </ul>
       )}
