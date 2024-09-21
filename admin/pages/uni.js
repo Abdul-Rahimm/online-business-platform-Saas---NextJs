@@ -16,28 +16,6 @@ export default function Uni() {
     "Use effect(scope,uses,flow)",
     "Use effect aur var mein farq",
   ];
-  const People = [
-    {
-      name: "rahim",
-      age: 12,
-    },
-    {
-      name: "rahim",
-      age: 10,
-    },
-    {
-      name: "rahim",
-      age: 15,
-    },
-    {
-      name: "zubair",
-      age: 0,
-    },
-    {
-      name: "amanda",
-      age: 19,
-    },
-  ];
 
   return (
     <div className="h-screen flex flex-row bg-gray-500">
@@ -46,7 +24,7 @@ export default function Uni() {
       </div>
 
       <div className="flex-1 bg-gray-100">
-        <Learning People={People} />
+        <Learning />
       </div>
     </div>
   );

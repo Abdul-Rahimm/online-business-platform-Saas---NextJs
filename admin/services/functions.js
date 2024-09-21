@@ -20,4 +20,33 @@ function sortedByAge() {
   });
 }
 
-export { sortedByAge, sorterByName };
+async function LoadAllCountriesData(setCountries) {
+  const URL = "https://restcountries.com/v3.1/all?fields=name";
+
+  await fetch(URL)
+    .then((response) => response.json())
+    .then((data) => {
+      setCountries(data);
+    });
+}
+async function loadSpecificCountryData(
+  selectedCountry,
+  setSelectedCountryData
+) {
+  const specificCountryURL = `https://restcountries.com/v3.1/name/${selectedCountry}`;
+
+  if (selectedCountry !== "") {
+    await fetch(specificCountryURL)
+      .then((response) => response.json())
+      .then((data) => {
+        setSelectedCountryData(data);
+      });
+  }
+}
+
+export {
+  sortedByAge,
+  sorterByName,
+  LoadAllCountriesData,
+  loadSpecificCountryData,
+};
