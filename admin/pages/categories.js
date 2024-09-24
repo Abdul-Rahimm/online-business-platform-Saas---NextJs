@@ -5,17 +5,25 @@ import { useEffect, useState } from "react";
 export default function Categories() {
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
+  const [parentCategory, setParentCategory] = useState("");
 
   useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  function fetchCategories() {
+    //Update the Categories to the latest ones
     axios.get("/api/categories").then((result) => {
       setCategories(result.data);
     });
-  }, []);
+  }
 
   async function saveCategory(event) {
     event.preventDefault();
-    await axios.post("/api/categories", { name });
+    await axios.post("/api/categories", { name, parentCategory });
     setName("");
+    setParentCategory("");
+    fetchCategories();
   }
 
   return (
@@ -31,6 +39,16 @@ export default function Categories() {
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
+        <select
+          className="mb-0"
+          value={parentCategory}
+          onChange={(ev) => setParentCategory(ev.target.value)}
+        >
+          <option value={0}>No Parent Category</option>
+          {categories.map((category) => (
+            <option value={category._id}>{category.name}</option>
+          ))}
+        </select>
         <button className="btn-primary" type="submit">
           Save
         </button>
@@ -49,6 +67,7 @@ export default function Categories() {
               return (
                 <tr>
                   <td>{category.name}</td>
+                  <td>{category?.parent?.name}</td>
                 </tr>
               );
             })}
