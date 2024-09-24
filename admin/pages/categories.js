@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Categories() {
+  const [isEdit, setIsEdited] = useState(null);
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [parentCategory, setParentCategory] = useState("");
@@ -26,11 +27,17 @@ export default function Categories() {
     fetchCategories();
   }
 
+  function handleEdit(category) {
+    setIsEdited(category);
+    setName(category.name);
+    setParentCategory(category?.parent?._id);
+  }
+
   return (
     <Layout>
       <h1>Categories</h1>
 
-      <label>Category</label>
+      <label>{isEdit ? `Edit ${isEdit.name}` : "New "} Category</label>
       <form onSubmit={saveCategory} className="flex gap-1">
         <input
           className="mb-0"
@@ -56,18 +63,30 @@ export default function Categories() {
 
       <table className="basic mt-4">
         <thead>
-          <tr>
-            <td>Category Name</td>
-            <td>Parent Category</td>
+          <tr className="flex">
+            <td className="flex-1">Category Name</td>
+            <td className="flex-1">Parent Category</td>
+            <td className="w-40"></td>
           </tr>
         </thead>
         <tbody>
           {categories.length > 0 &&
             categories.map((category) => {
               return (
-                <tr>
-                  <td>{category.name}</td>
-                  <td>{category?.parent?.name}</td>
+                <tr className="flex">
+                  <td className="flex-1 ">{category.name}</td>
+                  <td className="flex-1 b">{category?.parent?.name}</td>
+                  <div className="flex-none w-40 ">
+                    <td className="flex gap-1 justify-center">
+                      <button
+                        className="btn-primary"
+                        onClick={() => handleEdit(category)}
+                      >
+                        Edit
+                      </button>
+                      <button className="btn-primary">Delete</button>
+                    </td>
+                  </div>
                 </tr>
               );
             })}
