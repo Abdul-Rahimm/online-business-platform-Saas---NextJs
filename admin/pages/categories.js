@@ -1,9 +1,10 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { withSwal } from "react-sweetalert2";
 
-export default function Categories() {
-  const [isEdit, setIsEdited] = useState(null);
+function Categories({ swal }) {
+  const [isEdit, setIsEdited] = useState(null); //contains the object which is being edited
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [parentCategory, setParentCategory] = useState("");
@@ -19,9 +20,17 @@ export default function Categories() {
     });
   }
 
-  async function saveCategory(event) {
-    event.preventDefault();
-    await axios.post("/api/categories", { name, parentCategory });
+  async function saveCategory(ev) {
+    ev.preventDefault();
+    const data = { name, parentCategory };
+
+    if (isEdit) {
+      data._id = isEdit._id;
+      await axios.put("/api/categories", data);
+      setIsEdited(null);
+    } else {
+      await axios.post("/api/categories", data);
+    }
     setName("");
     setParentCategory("");
     fetchCategories();
@@ -31,6 +40,32 @@ export default function Categories() {
     setIsEdited(category);
     setName(category.name);
     setParentCategory(category?.parent?._id);
+  }
+
+  function handleDelete(category) {
+    swal
+      .fire({
+        title: "Are you sure?",
+        text: `Do you want to delete ${category.name} category?`,
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "red",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        // when confirmed and promise resolved...
+        const { isConfirmed } = result;
+        const { _id } = category; //the _id which should be deleted
+
+        if (isConfirmed) {
+          await axios.delete(`/api/categories?_id=` + _id);
+          //sometimes the user can click edit and then delete
+          setName("");
+          setParentCategory("");
+          setIsEdited(null);
+          fetchCategories();
+        }
+      });
   }
 
   return (
@@ -51,9 +86,11 @@ export default function Categories() {
           value={parentCategory}
           onChange={(ev) => setParentCategory(ev.target.value)}
         >
-          <option value={0}>No Parent Category</option>
+          <option value="">No Parent Category</option>
           {categories.map((category) => (
-            <option value={category._id}>{category.name}</option>
+            <option key={category._id} value={category._id}>
+              {category.name}
+            </option>
           ))}
         </select>
         <button className="btn-primary" type="submit">
@@ -84,7 +121,12 @@ export default function Categories() {
                       >
                         Edit
                       </button>
-                      <button className="btn-primary">Delete</button>
+                      <button
+                        onClick={() => handleDelete(category)}
+                        className="btn-primary"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </div>
                 </tr>
@@ -95,3 +137,5 @@ export default function Categories() {
     </Layout>
   );
 }
+
+export default withSwal(({ swal }, ref) => <Categories swal={swal} />);
