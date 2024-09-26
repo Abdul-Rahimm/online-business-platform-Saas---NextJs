@@ -88,7 +88,7 @@ export default function ProductForm({
         onChange={(event) => setTitle(event.target.value)}
       />
 
-      <label>Cateogory</label>
+      <label>Category</label>
       <select
         value={category}
         onChange={(ev) => {
@@ -98,9 +98,12 @@ export default function ProductForm({
         <option value="">No Category</option>
         {categoriesData.length > 0 &&
           categoriesData.map((category) => (
-            <option value={category._id}>{category.name}</option>
+            <option value={category._id} key={category._id}>
+              {category.name}
+            </option>
           ))}
       </select>
+
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-2">
         {/* images are displayed below */}

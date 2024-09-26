@@ -10,6 +10,10 @@ h1 {
   @apply text-blue-900 text-xl mb-2 font-semibold;
 }
 
+.heading {
+  @apply text-blue-500 font-semibold;
+}
+
 input,
 textarea,
 select {
@@ -26,9 +30,6 @@ label {
   @apply text-blue-900;
 }
 
-.btn-primary {
-  @apply text-white bg-blue-900 px-4 rounded-md py-1;
-}
 table.basic {
   @apply w-full;
 }
@@ -45,6 +46,10 @@ table.basic a {
   @apply bg-blue-900 text-white text-sm py-1 px-2 rounded-md inline-flex gap-1 mr-1;
 }
 
+.btn-primary {
+  @apply text-white bg-blue-900 px-4 rounded-md py-1;
+}
+
 .btn-red,
 .btn-default {
   @apply px-4 py-1 rounded-md;
@@ -56,8 +61,4 @@ table.basic a {
 
 .btn-default {
   @apply bg-gray-500 text-white;
-}
-
-.heading {
-  @apply text-blue-500 font-semibold;
 }
