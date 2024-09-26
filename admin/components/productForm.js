@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "@/components/spinner";
 import { ReactSortable } from "react-sortablejs";
 
@@ -10,6 +10,7 @@ export default function ProductForm({
   description: existingDescription,
   price: existingPrice,
   images: existingImages,
+  category: existingCategory,
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
@@ -17,12 +18,20 @@ export default function ProductForm({
   const [redirect, setRedirect] = useState(false);
   const [images, setImages] = useState(existingImages || []);
   const [isImageUploading, setIsImageUploading] = useState(false);
+  const [categoriesData, setCategoriesData] = useState([]);
+  const [category, setCategory] = useState(existingCategory || "");
 
   const router = useRouter();
 
+  useEffect(() => {
+    axios.get("/api/categories").then((result) => {
+      setCategoriesData(result.data);
+    });
+  }, []);
+
   async function saveProduct(event) {
     event.preventDefault();
-    const data = { title, description, price, images };
+    const data = { title, description, price, images, category };
 
     if (_id) {
       //updating a product
@@ -79,6 +88,19 @@ export default function ProductForm({
         onChange={(event) => setTitle(event.target.value)}
       />
 
+      <label>Cateogory</label>
+      <select
+        value={category}
+        onChange={(ev) => {
+          setCategory(ev.target.value);
+        }}
+      >
+        <option value="">No Category</option>
+        {categoriesData.length > 0 &&
+          categoriesData.map((category) => (
+            <option value={category._id}>{category.name}</option>
+          ))}
+      </select>
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-2">
         {/* images are displayed below */}
