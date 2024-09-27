@@ -25,7 +25,12 @@ function Categories({ swal }) {
     ev.preventDefault();
     const data = {
       name,
-      ...(parentCategory && { parentCategory }), // Include only if not empty
+      parentCategory,
+      //converting the comma seperated string to array of strings
+      properties: properties.map((property) => ({
+        name: property.name,
+        values: property.values.split(","),
+      })),
     };
 
     if (isEdit) {
@@ -37,6 +42,7 @@ function Categories({ swal }) {
     }
     setName("");
     setParentCategory("");
+    setProperties([]);
     fetchCategories();
   }
 
@@ -44,6 +50,12 @@ function Categories({ swal }) {
     setIsEdited(category);
     setName(category.name);
     setParentCategory(category?.parent?._id);
+    setProperties(
+      category.properties.map(({ name, values }) => ({
+        name,
+        values: values.join(","),
+      }))
+    );
   }
 
   function handleDelete(category) {
@@ -81,7 +93,7 @@ function Categories({ swal }) {
   function handlePropertyNameChange(index, property, newName) {
     setProperties((prev) => {
       const properties = [...prev];
-      properties[name] = newName;
+      properties[index].name = newName;
       return properties;
     });
   }
@@ -89,17 +101,17 @@ function Categories({ swal }) {
   function handlePropertyValuesChange(index, property, newValues) {
     setProperties((prev) => {
       const properties = [...prev];
-      properties[values] = newValues;
+      properties[index].values = newValues;
       return properties;
     });
   }
 
   function removeProperty(indexToRemove) {
-    // setProperties((prev) => {
-    //   return [...prev].filter((item, index) => {
-    //     return index !== indexToRemove;
-    //   });
-    // });
+    setProperties((prev) => {
+      return [...prev].filter((item, index) => {
+        return index !== indexToRemove;
+      });
+    });
   }
 
   return (
@@ -160,55 +172,78 @@ function Categories({ swal }) {
                   }
                   placeholder="values (comma seperated)"
                 />
-                <button className="btn-default" onClick={removeProperty(index)}>
+                <button
+                  className="btn-default"
+                  onClick={() => removeProperty(index)}
+                  type="button"
+                >
                   Remove
                 </button>
               </div>
             ))}
         </div>
 
-        {/* save button */}
-        <button className="btn-primary" type="submit">
-          Save
-        </button>
+        {/* save and cancelbutton */}
+        <div className="flex gap-1">
+          {isEdit && (
+            <button
+              className="btn-default"
+              type="button"
+              onClick={() => {
+                setIsEdited(null);
+                setName("");
+                setParentCategory("");
+                setProperties([]);
+              }}
+            >
+              Cancel
+            </button>
+          )}
+          <button className="btn-primary" type="submit">
+            Save
+          </button>
+        </div>
       </form>
 
-      <table className="basic mt-4">
-        <thead>
-          <tr className="flex">
-            <td className="flex-1">Category Name</td>
-            <td className="flex-1">Parent Category</td>
-            <td className="w-40"></td>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.length > 0 &&
-            categories.map((category) => {
-              return (
-                <tr className="flex">
-                  <td className="flex-1 ">{category.name}</td>
-                  <td className="flex-1 b">{category?.parent?.name}</td>
-                  <div className="flex-none w-40 ">
-                    <td className="flex gap-1 justify-center">
-                      <button
-                        className="btn-primary"
-                        onClick={() => handleEdit(category)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(category)}
-                        className="btn-primary"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </div>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      {/* table which displays all categories with parents */}
+      {!isEdit && (
+        <table className="basic mt-4">
+          <thead>
+            <tr className="flex">
+              <td className="flex-1">Category Name</td>
+              <td className="flex-1">Parent Category</td>
+              <td className="w-40"></td>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.length > 0 &&
+              categories.map((category) => {
+                return (
+                  <tr className="flex">
+                    <td className="flex-1 ">{category.name}</td>
+                    <td className="flex-1 b">{category?.parent?.name}</td>
+                    <div className="flex-none w-40 ">
+                      <td className="flex gap-1 justify-center">
+                        <button
+                          className="btn-primary"
+                          onClick={() => handleEdit(category)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(category)}
+                          className="btn-primary"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </div>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      )}
     </Layout>
   );
 }
