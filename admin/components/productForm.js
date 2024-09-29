@@ -11,6 +11,7 @@ export default function ProductForm({
   price: existingPrice,
   images: existingImages,
   category: existingCategory,
+  properties: assignedProperties,
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
@@ -20,6 +21,9 @@ export default function ProductForm({
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [categoriesData, setCategoriesData] = useState([]);
   const [category, setCategory] = useState(existingCategory || "");
+  const [productProperties, setProductProperties] = useState(
+    assignedProperties || {}
+  );
 
   const router = useRouter();
 
@@ -31,7 +35,14 @@ export default function ProductForm({
 
   async function saveProduct(event) {
     event.preventDefault();
-    const data = { title, description, price, images, category };
+    const data = {
+      title,
+      description,
+      price,
+      images,
+      category,
+      properties: productProperties,
+    };
 
     if (_id) {
       //updating a product
@@ -78,6 +89,14 @@ export default function ProductForm({
     setImages(images);
   }
 
+  function setProductProps(propName, value) {
+    setProductProperties((prev) => {
+      const newProductProps = { ...prev };
+      newProductProps[propName] = value;
+      return newProductProps;
+    });
+  }
+
   //for a particular product, it will show the parent categories as well
   const propertiesToFill = [];
   if (categoriesData.length > 0 && category) {
@@ -121,7 +140,20 @@ export default function ProductForm({
       </select>
 
       {propertiesToFill.map((p) => (
-        <div>{p.name}</div>
+        <div className="flex gap-1">
+          <div>{p.name}</div>
+          {/* values is an array */}
+          <select
+            value={productProperties[p.name]}
+            onChange={(ev) => setProductProps(p.name, ev.target.value)}
+          >
+            {p.values.map((value) => (
+              <option value={value} key={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </div>
       ))}
 
       <label>Photos</label>
