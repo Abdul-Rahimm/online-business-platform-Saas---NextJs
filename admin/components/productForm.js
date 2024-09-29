@@ -78,6 +78,22 @@ export default function ProductForm({
     setImages(images);
   }
 
+  //for a particular product, it will show the parent categories as well
+  const propertiesToFill = [];
+  if (categoriesData.length > 0 && category) {
+    let CatInfo = categoriesData.find(({ _id }) => _id === category);
+    propertiesToFill.push(...CatInfo.properties);
+
+    while (CatInfo?.parent?._id) {
+      const parentCat = categoriesData.find(
+        ({ _id }) => _id === CatInfo?.parent?._id
+      );
+
+      propertiesToFill.push(...parentCat.properties);
+      CatInfo = parentCat;
+    }
+  }
+
   return (
     <form onSubmit={saveProduct}>
       <label>Product Name</label>
@@ -103,6 +119,10 @@ export default function ProductForm({
             </option>
           ))}
       </select>
+
+      {propertiesToFill.map((p) => (
+        <div>{p.name}</div>
+      ))}
 
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-2">
