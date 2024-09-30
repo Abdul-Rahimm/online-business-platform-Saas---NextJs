@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 
 export default function DeleteProduct() {
   const router = useRouter();
-  const id = router.query.id[0];
-  // const { id } = router.query;
+  // const id = router.query.id[0];
+  const { id } = router.query;
   const [productInfo, setProductInfo] = useState();
 
   function goBack() {
