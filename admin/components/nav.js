@@ -4,7 +4,12 @@ import { useRouter } from "next/router";
 
 export default function Nav() {
   const inactiveLink = "flex gap-1 p-1";
-  const activeLink = inactiveLink + " bg-white text-blue-900 rounded-l-md";
+  const activeLink =
+    inactiveLink + " bg-highlight text-black font-semibold rounded-md";
+
+  const inactiveIcon = "w-6 h-6 ";
+  const activeIcon = inactiveIcon + "text-primary";
+
   const router = useRouter();
   const { asPath } = router;
 
@@ -14,7 +19,7 @@ export default function Nav() {
   }
 
   return (
-    <aside className="text-white p-4 pr-0">
+    <aside className="text-gray-500 p-4 fixed w-full bg-customGray h-full -left-full">
       <Link href={"/"} className="flex gap-1 mb-4 mr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -46,6 +51,7 @@ export default function Nav() {
             stroke-width="1.5"
             stroke="currentColor"
             class="size-6"
+            className={asPath.length === 1 ? activeIcon : inactiveIcon}
           >
             <path
               stroke-linecap="round"
@@ -67,6 +73,7 @@ export default function Nav() {
             stroke-width="1.5"
             stroke="currentColor"
             class="size-6"
+            className={asPath.includes("/products") ? activeIcon : inactiveIcon}
           >
             <path
               stroke-linecap="round"
@@ -88,6 +95,9 @@ export default function Nav() {
             stroke-width="1.5"
             stroke="currentColor"
             class="size-6"
+            className={
+              asPath.includes("/categories") ? activeIcon : inactiveIcon
+            }
           >
             <path
               stroke-linecap="round"
@@ -109,6 +119,7 @@ export default function Nav() {
             stroke-width="1.5"
             stroke="currentColor"
             class="size-6"
+            className={asPath.includes("/orders") ? activeIcon : inactiveIcon}
           >
             <path
               stroke-linecap="round"
@@ -130,6 +141,7 @@ export default function Nav() {
             stroke-width="1.5"
             stroke="currentColor"
             class="size-6"
+            className={asPath.includes("/settings") ? activeIcon : inactiveIcon}
           >
             <path
               stroke-linecap="round"
