@@ -14,17 +14,18 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      console.log("session ", { session, token, user });
-
-      if (adminEmails.includes(session?.user?.email)) return session;
-      else return false;
+    session: ({ session, token, user }) => {
+      if (adminEmails.includes(session?.user?.email)) {
+        return session;
+      } else {
+        return false;
+      }
     },
   },
 };
 
 export async function isAdminRequest(req, res) {
-  const session = getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   if (!adminEmails.includes(session?.user.email)) throw "not admin";
 }
