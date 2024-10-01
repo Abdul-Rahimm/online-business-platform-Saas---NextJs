@@ -173,7 +173,7 @@ function Categories({ swal }) {
                   placeholder="values (comma seperated)"
                 />
                 <button
-                  className="btn-default"
+                  className="btn-red"
                   onClick={() => removeProperty(index)}
                   type="button"
                 >
@@ -225,14 +225,14 @@ function Categories({ swal }) {
                     <div className="flex-none w-40 ">
                       <td className="flex gap-1 justify-center">
                         <button
-                          className="btn-primary"
+                          className="btn-default"
                           onClick={() => handleEdit(category)}
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDelete(category)}
-                          className="btn-primary"
+                          className="btn-red"
                         >
                           Delete
                         </button>
