@@ -47,7 +47,7 @@ table.basic a {
 }
 
 .btn-primary {
-  @apply text-white bg-blue-900 px-4 rounded-md py-1;
+  @apply text-white bg-primary px-4 rounded-md py-1;
 }
 
 .btn-red,
