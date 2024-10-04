@@ -1,17 +1,13 @@
 "use client";
+import Featured from "@/components/Featured";
 import Header from "@/components/Header";
 import styled from "styled-components";
-
-const StyledHeader = styled.header`
-  background-color: teal;
-`;
 
 export default function Home() {
   return (
     <div className="">
-      <StyledHeader>
-        <Header />
-      </StyledHeader>
+      <Header />
+      <Featured />
     </div>
   );
 }
