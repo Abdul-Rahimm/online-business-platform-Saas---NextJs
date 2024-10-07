@@ -1,11 +1,16 @@
 import styled, { css } from "styled-components";
-
+// 7 16 50
 const StyledButton = styled.button`
   border: 0;
   color: #fff;
   padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
+  display: inline-flex;
+  svg {
+    height: 16px;
+    margin-right: 5px;
+  }
 
   ${(props) =>
     props.primary &&
@@ -16,9 +21,19 @@ const StyledButton = styled.button`
 
   ${(props) =>
     props.white &&
+    !props.outline &&
     css`
       background-color: #fff;
       color: #000;
+    `};
+
+  ${(props) =>
+    props.white &&
+    props.outline &&
+    css`
+      border: 1px solid #fff;
+      color: #fff;
+      background-color: transparent;
     `};
 
   ${(props) =>
@@ -26,6 +41,9 @@ const StyledButton = styled.button`
     css`
       font-size: 1.2rem;
       padding: 10px 20px;
+      svg {
+        height: 20px;
+      }
     `};
 `;
 
