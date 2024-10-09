@@ -11,7 +11,7 @@ const Bg = styled.div`
 const Title = styled.h1`
   margin: 0;
   font-weight: normal;
-  font-size: xx-large;
+  font-size: 2rem;
 `;
 
 const Desc = styled.p`
@@ -35,7 +35,8 @@ const Wrapper = styled.div`
 
 const ButtonsWrapper = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 10px;
+  margin-top: 25px;
 `;
 
 export default function Featured() {
@@ -52,10 +53,10 @@ export default function Featured() {
                 ipsumlorem ipsum lorem ipsum
               </Desc>
               <ButtonsWrapper>
-                <Button outline white size="l">
+                <Button outline={true} white={true}>
                   Read more
                 </Button>
-                <Button primary size="l">
+                <Button primary={true}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
