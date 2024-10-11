@@ -13,18 +13,60 @@ const Logo = styled(Link)`
   text-decoration: none;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+`;
+
+const StyledNav = styled.nav`
+  ${(props) =>
+    props.mobileNavActive
+      ? `
+    display: block;
+  `
+      : `
+    display: none;
+  `}
+  gap: 15px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 70px 20px 20px;
+  background-color: #222;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    position: static;
+    padding: 0;
+  }
+`;
+
+const NavLink = styled(Link)`
+  display: block;
+  color: #aaa;
+  text-decoration: none;
+  padding: 10px 0;
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
+`;
+
 const Header = () => {
   return (
     <StyledHeader>
       <Center>
-        <Logo href={"/"}>Fast-Commerce</Logo>
-        <nav>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/products"}>Products</Link>
-          <Link href={"/categories"}>Categories</Link>
-          <Link href={"/account"}>Account</Link>
-          <Link href={"/cart"}>Cart (0)</Link>
-        </nav>
+        <Wrapper>
+          <Logo href={"/"}>Fast-Commerce</Logo>
+          <StyledNav>
+            <NavLink href={"/"}>Home</NavLink>
+            <NavLink href={"/products"}>Products</NavLink>
+            <NavLink href={"/categories"}>Categories</NavLink>
+            <NavLink href={"/account"}>Account</NavLink>
+            <NavLink href={"/cart"}>Cart (0)</NavLink>
+          </StyledNav>
+        </Wrapper>
       </Center>
     </StyledHeader>
   );
