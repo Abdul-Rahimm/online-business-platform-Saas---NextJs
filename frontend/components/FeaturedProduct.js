@@ -41,18 +41,15 @@ const ButtonsWrapper = styled.div`
   margin-top: 25px;
 `;
 
-const FeaturedProduct = () => {
+const FeaturedProduct = ({ product }) => {
   return (
     <Background>
       <Center>
         <ColumnsWrapper>
           <Column>
             <div>
-              <Title>Macbook Pro</Title>
-              <Description>
-                Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-                Lorem Ipsum Lorem Ipsum{" "}
-              </Description>
+              <Title>{product.title}</Title>
+              <Description>{product.description}</Description>
 
               <ButtonsWrapper>
                 <PrimaryButton $white $outline>
