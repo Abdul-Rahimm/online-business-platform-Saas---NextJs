@@ -2,6 +2,7 @@ import React from "react";
 import Center from "./Center";
 import styled from "styled-components";
 import Image from "next/image";
+import PrimaryButton from "./PrimaryButton";
 
 const Background = styled.div`
   background-color: #222;
@@ -19,9 +20,9 @@ const Description = styled.p`
   font-size: 0.8rem;
 `;
 
-const Wrapper = styled.div`
+const ColumnsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.9fr 1.1fr;
   gap: 40px;
   img {
     max-width: 100%;
@@ -33,11 +34,16 @@ const Column = styled.div`
   align-items: center;
 `;
 
+const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
 const FeaturedProduct = () => {
   return (
     <Background>
       <Center>
-        <Wrapper>
+        <ColumnsWrapper>
           <Column>
             <div>
               <Title>Macbook Pro</Title>
@@ -45,12 +51,22 @@ const FeaturedProduct = () => {
                 Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
                 Lorem Ipsum Lorem Ipsum{" "}
               </Description>
+
+              <ButtonsWrapper>
+                <PrimaryButton $size="l" $white $outline>
+                  Read More
+                </PrimaryButton>
+                <PrimaryButton $primary $size="l">
+                  Add to Cart
+                </PrimaryButton>
+              </ButtonsWrapper>
             </div>
           </Column>
+
           <Column>
             <img src="https://next-ecommerce-rahim.s3.amazonaws.com/1728301343982.png" />
           </Column>
-        </Wrapper>
+        </ColumnsWrapper>
       </Center>
     </Background>
   );
