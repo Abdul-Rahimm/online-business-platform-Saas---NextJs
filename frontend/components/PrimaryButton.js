@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button`
+export const ButtonStyle = css`
   border: 0;
   cursor: pointer;
   padding: 5px 20px;
@@ -49,6 +49,10 @@ const StyledButton = styled.button`
 
       color: #fff;
     `}
+`;
+
+const StyledButton = styled.button`
+  ${ButtonStyle}
 `;
 
 const PrimaryButton = ({ children, ...restProps }) => {

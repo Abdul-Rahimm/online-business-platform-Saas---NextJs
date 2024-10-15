@@ -3,6 +3,7 @@ import Center from "./Center";
 import styled from "styled-components";
 import Image from "next/image";
 import PrimaryButton from "./PrimaryButton";
+import ButtonLink from "./ButtonLink";
 
 const Background = styled.div`
   background-color: #222;
@@ -52,9 +53,9 @@ const FeaturedProduct = ({ product }) => {
               <Description>{product.description}</Description>
 
               <ButtonsWrapper>
-                <PrimaryButton $white $outline>
+                <ButtonLink href={"/products/" + product._id} $white $outline>
                   Read More
-                </PrimaryButton>
+                </ButtonLink>
                 <PrimaryButton $primary>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
