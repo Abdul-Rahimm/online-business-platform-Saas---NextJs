@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@/components/Button";
 import { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
 import { useCart } from "@/providers/CartContext";
@@ -79,15 +79,15 @@ export default function CartPage() {
   const [country, setCountry] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  //   useEffect(() => {
-  //     if (cartProducts.length > 0) {
-  //       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
-  //         setProducts(response.data);
-  //       });
-  //     } else {
-  //       setProducts([]);
-  //     }
-  //   }, [cartProducts]);
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      axios.post("/api/cart", { ids: cartProducts }).then((response) => {
+        setProducts(response.data);
+      });
+    } else {
+      setProducts([]);
+    }
+  }, [cartProducts]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -120,6 +120,7 @@ export default function CartPage() {
       window.location = response.data.url;
     }
   }
+
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find((p) => p._id === productId)?.price || 0;
@@ -198,6 +199,7 @@ export default function CartPage() {
               </Table>
             )}
           </Box>
+
           {!!cartProducts?.length && (
             <Box>
               <h2>Order information</h2>
