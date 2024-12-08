@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
+import { useCart } from "@/providers/CartContext";
 
 const ProductWrapper = styled.div``;
 
@@ -56,6 +57,7 @@ const Price = styled.div`
 
 const ProductBox = ({ _id, title, description, price, images }) => {
   const url = "/product/" + _id;
+  const { addProduct } = useCart();
 
   return (
     <ProductWrapper>

@@ -46,11 +46,11 @@ const ButtonsWrapper = styled.div`
 `;
 
 const FeaturedProduct = ({ product }) => {
-  const { setCartProducts } = useCart();
+  const { addProduct } = useCart();
 
   //add the ID of the product to cart
   function addFeaturedProductToCart() {
-    setCartProducts((prev) => [...prev, product._id]);
+    addProduct(product._id);
   }
 
   return (
