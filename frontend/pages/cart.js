@@ -67,8 +67,7 @@ const CityHolder = styled.div`
 `;
 
 export default function CartPage() {
-  //   const { cartProducts, addProduct, removeProduct, clearCart } = useCart();
-  const { cartProducts, addProduct } = useCart();
+  const { cartProducts, addProduct, removeProduct, clearCart } = useCart();
 
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
