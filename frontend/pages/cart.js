@@ -156,7 +156,7 @@ export default function CartPage() {
                   <tr>
                     <th>Product</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Price (PKR)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -183,7 +183,6 @@ export default function CartPage() {
                         </Button>
                       </td>
                       <td>
-                        $
                         {cartProducts.filter((id) => id === product._id)
                           .length * product.price}
                       </td>
@@ -192,7 +191,7 @@ export default function CartPage() {
                   <tr>
                     <td></td>
                     <td></td>
-                    <td>${total}</td>
+                    <td>{total}/-</td>
                   </tr>
                 </tbody>
               </Table>
