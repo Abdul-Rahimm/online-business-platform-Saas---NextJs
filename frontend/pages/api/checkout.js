@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const { name, email, city, postalCode, streetAddress, country, products } =
     req.body;
 
-  const productIds = products.split(",");
+  const productIds = products?.split(",");
 
   //i need to find unique ids
   //two products with the same id means i want two quantity of that product

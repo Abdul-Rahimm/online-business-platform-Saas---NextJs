@@ -115,9 +115,9 @@ export default function CartPage() {
       country,
       cartProducts,
     });
-    if (response.data.url) {
-      window.location = response.data.url;
-    }
+    // if (response.data.url) {
+    //   window.location = response.data.url;
+    // }
   }
 
   let total = 0;
