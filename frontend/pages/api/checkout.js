@@ -1,7 +1,7 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/product";
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.json("Should be a post request");
   }
@@ -19,6 +19,26 @@ const handler = async (req, res) => {
   const uniqueIds = [...new Set(productIds)];
 
   const productInfos = await Product.find({ _id: uniqueIds });
-};
 
-export default handler;
+  let line_items = [];
+
+  for (const productID of uniqueIds) {
+    const productInfo = productInfos.find(
+      (prod) => prod._id.toString() === productID
+    );
+    const quantity = productIds.filter((id) => id === productID)?.length || 0;
+
+    if (quantity > 0) {
+      line_items.push({
+        quantity,
+        price_data: {
+          currency: "PKR",
+          product_data: { name: productInfo.title },
+          unit_amount: quantity * productInfo.price,
+        },
+      });
+    }
+  }
+
+  res.json({ line_items });
+}
