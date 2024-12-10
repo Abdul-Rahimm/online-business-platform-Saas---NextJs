@@ -9,7 +9,6 @@ export default async function handler(req, res) {
   }
   await mongooseConnect();
 
-  //products is a string of IDS (comma seperated)
   const {
     name,
     email,
@@ -69,10 +68,10 @@ export default async function handler(req, res) {
     metadata: { orderId: orderDocument._id.toString() },
   });
 
-  console.log("RL", session.url);
+  // console.log("RL", session.url);
   res.json({
     url: session.url,
   });
 
-  res.json({ line_items });
+  // res.json({ line_items });
 }
