@@ -4,7 +4,7 @@ import { buffer } from "micro";
 import { Order } from "@/models/Order";
 
 const endpointSecret =
-  "whsec_634d3142fd2755bd61adaef74ce0504bd2044848c8aac301ffdb56339a0ca78d";
+  "whsec_830c34b8165071e6ecbe1302e1350662ff1f040c77214d6e7eee312a46e8676c";
 
 export default async function handler(req, res) {
   await mongooseConnect();
@@ -29,12 +29,14 @@ export default async function handler(req, res) {
       const data = event.data.object;
       const orderId = data.metadata.orderId;
       const paid = data.payment_status === "paid";
+
       if (orderId && paid) {
         await Order.findByIdAndUpdate(orderId, {
           paid: true,
         });
       }
       break;
+
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
@@ -46,5 +48,5 @@ export const config = {
   api: { bodyParser: false },
 };
 
-// yay-remedy-bright-galore
+// enrich-eases-sleek-softer
 // acct_1QUPtqARHNBlTvxa

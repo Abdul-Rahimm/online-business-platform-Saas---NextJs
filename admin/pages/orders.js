@@ -27,8 +27,8 @@ export default function OrdersPage() {
               <tr key={order._id} className="border-t">
                 <td>{new Date(order.createdAt).toLocaleString()}</td>
 
-                <td className={!order.paid ? "text-green-600" : "text-red-600"}>
-                  {!order.paid ? "YES" : "NO"}
+                <td className={order.paid ? "text-green-600" : "text-red-600"}>
+                  {order.paid ? "YES" : "NO"}
                 </td>
 
                 <td>
