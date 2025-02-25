@@ -19,7 +19,7 @@ export async function getServerSideProps() {
   //pass it to featured component
   await mongooseConnect();
 
-  const featuredProductId = "6703c92c597cba37b80649ce";
+  const featuredProductId = "67bd6ae1327597d482e3a645";
   const featuredProduct = await Product.findById(featuredProductId);
   const newProducts = await Product.find({}, null, {
     sort: { _id: -1 },

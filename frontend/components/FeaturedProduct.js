@@ -76,7 +76,7 @@ const FeaturedProduct = ({ product }) => {
           </Column>
 
           <Column>
-            <img src="https://next-ecommerce-rahim.s3.amazonaws.com/1728301343982.png" />
+            <img src="https://next-ecommerce-rahim.s3.amazonaws.com/1740466893461.jpg" />
           </Column>
         </ColumnsWrapper>
       </Center>

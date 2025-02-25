@@ -61,7 +61,7 @@ const Header = () => {
     <StyledHeader>
       <Center>
         <Wrapper>
-          <Logo href={"/"}>Fast-Commerce</Logo>
+          <Logo href={"/"}>Treats By YI</Logo>
           <StyledNav>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>Products</NavLink>
