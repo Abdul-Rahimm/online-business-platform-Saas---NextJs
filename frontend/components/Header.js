@@ -7,20 +7,18 @@ import BarsIcon from "./icons/Bars";
 
 const StyledHeader = styled.header`
   background-color: #222;
-  padding: 4px;
 `;
-
 const Logo = styled(Link)`
   color: #fff;
   text-decoration: none;
+  position: relative;
+  z-index: 3;
 `;
-
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
 `;
-
 const StyledNav = styled.nav`
   ${(props) =>
     props.mobileNavActive
@@ -44,18 +42,15 @@ const StyledNav = styled.nav`
     padding: 0;
   }
 `;
-
 const NavLink = styled(Link)`
   display: block;
   color: #aaa;
   text-decoration: none;
   padding: 10px 0;
-
   @media screen and (min-width: 768px) {
     padding: 0;
   }
 `;
-
 const NavButton = styled.button`
   background-color: transparent;
   width: 30px;
@@ -65,7 +60,6 @@ const NavButton = styled.button`
   cursor: pointer;
   position: relative;
   z-index: 3;
-
   @media screen and (min-width: 768px) {
     display: none;
   }
