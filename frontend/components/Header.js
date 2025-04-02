@@ -47,6 +47,7 @@ const NavLink = styled(Link)`
   color: #aaa;
   text-decoration: none;
   padding: 10px 0;
+
   @media screen and (min-width: 768px) {
     padding: 0;
   }
@@ -60,6 +61,7 @@ const NavButton = styled.button`
   cursor: pointer;
   position: relative;
   z-index: 3;
+
   @media screen and (min-width: 768px) {
     display: none;
   }

@@ -13,9 +13,11 @@ import { useCart } from "@/providers/CartContext";
 const ColWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
+
   @media screen and (min-width: 768px) {
     grid-template-columns: 0.8fr 1.2fr;
   }
+
   gap: 40px;
   margin: 40px 0;
 `;
@@ -30,6 +32,7 @@ const Price = styled.span`
 
 export default function ProductPage({ product }) {
   const { addProduct } = useCart();
+
   return (
     <>
       <Header />

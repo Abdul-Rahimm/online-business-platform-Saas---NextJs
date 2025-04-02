@@ -35,10 +35,12 @@ const ProductInfoBox = styled.div`
 
 const PriceRow = styled.div`
   display: block;
+
   @media screen and (min-width: 768px) {
     display: flex;
     gap: 5px;
   }
+
   align-items: center;
   justify-content: space-between;
   margin-top: 2px;
@@ -48,6 +50,7 @@ const Price = styled.div`
   font-size: 1rem;
   font-weight: 400;
   text-align: right;
+
   @media screen and (min-width: 768px) {
     font-size: 1.2rem;
     font-weight: 600;
