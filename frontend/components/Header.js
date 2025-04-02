@@ -1,8 +1,9 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Center from "./Center";
 import { useCart } from "@/providers/CartContext";
+import BarsIcon from "./icons/Bars";
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -49,26 +50,48 @@ const NavLink = styled(Link)`
   color: #aaa;
   text-decoration: none;
   padding: 10px 0;
+
   @media screen and (min-width: 768px) {
     padding: 0;
   }
 `;
 
+const NavButton = styled.button`
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+
 const Header = () => {
   const { cartProducts } = useCart();
+  const [mobileNavActive, setMobileNavActive] = useState(false);
 
   return (
     <StyledHeader>
       <Center>
         <Wrapper>
           <Logo href={"/"}>Treats By YI</Logo>
-          <StyledNav>
+
+          <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>Products</NavLink>
             <NavLink href={"/categories"}>Categories</NavLink>
             <NavLink href={"/account"}>Account</NavLink>
             <NavLink href={"/cart"}>Cart {cartProducts.length}</NavLink>
           </StyledNav>
+
+          <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+            <BarsIcon />
+          </NavButton>
         </Wrapper>
       </Center>
     </StyledHeader>
