@@ -1,24 +1,44 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
+import ProductBox from "@/components/ProductBox";
 import Title from "@/components/Title";
 import { Category } from "@/models/category";
 import { Product } from "@/models/product";
+import styled from "styled-components";
+
+const CategoriesGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+`;
+
+const CategoryTitle = styled.h2`
+  margin-top: 40px;
+  margin-bottom: 10px;
+`;
+
+const CategoryWrapper = styled.div`
+  margin-bottom: 40px;
+`;
 
 export default function CategoriesPage(props) {
   return (
     <>
       <Header />
       <Center>
-        <Title>All Categories</Title>
         {props.mainCategories.map((cat) => (
-          <div>
-            <h2>{cat.name}</h2>
-            <div>
+          <CategoryWrapper>
+            <CategoryTitle>{cat.name}</CategoryTitle>
+            <CategoriesGrid>
               {props.categoryProductsMap[cat._id].map((p) => (
-                <div>{p.title}</div>
+                <ProductBox {...p} />
               ))}
-            </div>
-          </div>
+            </CategoriesGrid>
+          </CategoryWrapper>
         ))}
       </Center>
     </>
@@ -34,10 +54,9 @@ export async function getServerSideProps() {
 
   for (const mainCategory of mainCategories) {
     const mainCategoryId = mainCategory._id.toString();
-    console.log(mainCategoryId);
     const childCategoryIds = categories
       .filter((c) => c?.parent?.toString() === mainCategoryId)
-      .map((c) => c._id);
+      .map((c) => c._id.toString());
 
     const categoryIDs = [mainCategoryId, ...childCategoryIds];
 
