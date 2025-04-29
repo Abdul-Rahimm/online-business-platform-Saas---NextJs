@@ -72,7 +72,6 @@ const ProductBox = ({ _id, title, description, price, images }) => {
 
       <ProductInfoBox>
         <Title href={url}>{title}</Title>
-
         <PriceRow>
           <Price>${price}</Price>
           <Button block onClick={() => addProduct(_id)} primary outline>
