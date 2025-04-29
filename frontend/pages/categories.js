@@ -18,7 +18,7 @@ const CategoriesGrid = styled.div`
 `;
 
 const CategoryTitle = styled.div`
-  margin-top: 40px;
+  margin-top: 10px;
   margin-bottom: 0px;
   /* background-color: lightcyan; */
   display: flex;
