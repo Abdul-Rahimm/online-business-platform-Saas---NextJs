@@ -20,7 +20,7 @@ const CategoriesGrid = styled.div`
 const CategoryTitle = styled.div`
   margin-top: 40px;
   margin-bottom: 0px;
-  background-color: lightcyan;
+  /* background-color: lightcyan; */
   display: flex;
   align-items: center;
   gap: 15px;
@@ -35,7 +35,7 @@ const CategoryTitle = styled.div`
 
 const CategoryWrapper = styled.div`
   margin-bottom: 40px;
-  background-color: lightblue;
+  /* background-color: lightblue; */
 `;
 
 const ShowAllSquare = styled(Link)`
