@@ -45,6 +45,7 @@ export default function CategoryPage({
     category.properties.map((p) => ({ name: p.name, value: "all" }))
   );
   const [products, setProducts] = useState(originalProducts);
+  const [sort, setSort] = useState("price low");
 
   function handleFilterChange(filterName, filterValue) {
     setFilterValue((prev) => {
@@ -97,6 +98,16 @@ export default function CategoryPage({
                 </select>
               </Filter>
             ))}
+            <Filter>
+              <span>Sort:</span>
+              <select
+                value={sort}
+                onChange={(event) => setSort(event.target.value)}
+              >
+                <option value="price low">Price, lowest first</option>
+                <option value="price high">Price, highest first</option>
+              </select>
+            </Filter>
           </FiltersWrapper>
         </CategoryHeader>
         <ProductsGrid products={products} />
