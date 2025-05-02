@@ -1,8 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import Button, { ButtonStyle } from "./Button";
 import { useCart } from "@/providers/CartContext";
+import FlyingButton from "react-flying-item";
 
 const ProductWrapper = styled.div``;
 
@@ -58,6 +59,10 @@ const Price = styled.div`
   }
 `;
 
+const StyledFlyingButton = styled(FlyingButton)`
+  ${ButtonStyle}
+`;
+
 const ProductBox = ({ _id, title, description, price, images }) => {
   const url = "/product/" + _id;
   const { addProduct } = useCart();
@@ -74,9 +79,16 @@ const ProductBox = ({ _id, title, description, price, images }) => {
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-          <Button block onClick={() => addProduct(_id)} primary outline>
-            Add to cart
-          </Button>
+          <StyledFlyingButton
+            src={images?.[0]}
+            targetTop={"5%"}
+            targetLeft={"95%"}
+            flyingItemStyling={{}}
+          >
+            <Button block onClick={() => addProduct(_id)} primary outline>
+              Add to cart
+            </Button>
+          </StyledFlyingButton>
         </PriceRow>
       </ProductInfoBox>
     </ProductWrapper>
