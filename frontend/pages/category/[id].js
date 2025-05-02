@@ -1,6 +1,7 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import ProductsGrid from "@/components/ProductsGrid";
+import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
 import { Category } from "@/models/category";
 import { Product } from "@/models/product";
@@ -57,6 +58,7 @@ export default function CategoryPage({
   }
 
   useEffect(() => {
+    setLoading(true);
     const catIds = [category._id, ...(subCategories?.map((c) => c._id) || [])];
     const params = new URLSearchParams();
 
@@ -71,7 +73,13 @@ export default function CategoryPage({
     axios.get(url).then((res) => {
       setProducts(res.data);
     });
+
+    // setTimeout(() => {
+    setLoading(false);
+    // }, 2000);
   }, [filterValue, sort]);
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -108,11 +116,22 @@ export default function CategoryPage({
               >
                 <option value="price asc">Price, lowest first</option>
                 <option value="price desc">Price, highest first</option>
+                <option value="_id desc">Newest first</option>
+                <option value="_id asc">Oldest first</option>
               </select>
             </Filter>
           </FiltersWrapper>
         </CategoryHeader>
-        <ProductsGrid products={products} />
+        {loading && <Spinner fullWidth />}
+        {!loading && (
+          <div>
+            {products.length > 0 ? (
+              <ProductsGrid products={products} />
+            ) : (
+              <div>Sorry, not products found.</div>
+            )}
+          </div>
+        )}
       </Center>
     </>
   );
