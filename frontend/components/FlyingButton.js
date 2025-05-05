@@ -7,9 +7,13 @@ import { useCart } from "@/providers/CartContext";
 const FlyingButtonWrapper = styled.div`
   button {
     ${ButtonStyle}
-    background-color: transparent;
+    ${(props) =>
+      props.main
+        ? `background-color:  ${primary};
+    color: white;`
+        : `background-color: transparent;
     border: 1px solid ${primary};
-    color: ${primary};
+    color: ${primary};`}
   }
 `;
 
@@ -17,7 +21,10 @@ export default function FlyingButton(props) {
   const { addProduct } = useCart();
 
   return (
-    <FlyingButtonWrapper onClick={() => addProduct(props._id)}>
+    <FlyingButtonWrapper
+      main={props.main}
+      onClick={() => addProduct(props._id)}
+    >
       <FlyingButtonOriginal
         {...props}
         targetTop={"5%"}
