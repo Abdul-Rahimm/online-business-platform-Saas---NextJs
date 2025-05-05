@@ -7,6 +7,7 @@ import ButtonLink from "./ButtonLink";
 import CartIcon from "./icons/CartIcon";
 import Button from "./Button";
 import { useCart } from "@/providers/CartContext";
+import FlyingButton from "./FlyingButton";
 
 const Bg = styled.div`
   background-color: #222;
@@ -59,12 +60,7 @@ const ButtonsWrapper = styled.div`
 `;
 
 const FeaturedProduct = ({ product }) => {
-  const { addProduct } = useCart();
-
-  //add the ID of the product to cart
-  function addFeaturedProductToCart() {
-    addProduct(product._id);
-  }
+  // const { addProduct } = useCart();
 
   return (
     <Bg>
@@ -80,10 +76,10 @@ const FeaturedProduct = ({ product }) => {
                   Read More
                 </ButtonLink>
 
-                <Button $white onClick={addFeaturedProductToCart}>
+                <FlyingButton white _id={product._id} src={product.images[0]}>
                   <CartIcon />
                   Add to Cart
-                </Button>
+                </FlyingButton>
               </ButtonsWrapper>
             </div>
           </Column>

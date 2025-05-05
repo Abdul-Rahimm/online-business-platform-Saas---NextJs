@@ -4,6 +4,7 @@ import { ButtonStyle } from "./PrimaryButton";
 
 const StyledLink = styled(Link)`
   ${ButtonStyle}
+  text-decoration: none;
 `;
 
 const ButtonLink = (props) => {
