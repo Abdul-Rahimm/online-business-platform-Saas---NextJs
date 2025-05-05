@@ -3,7 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import Button, { ButtonStyle } from "./Button";
 import { useCart } from "@/providers/CartContext";
-import FlyingButton from "react-flying-item";
+import { primary } from "@/lib/colors";
+import FlyingButton from "./FlyingButton";
 
 const ProductWrapper = styled.div``;
 
@@ -59,9 +60,9 @@ const Price = styled.div`
   }
 `;
 
-const StyledFlyingButton = styled(FlyingButton)`
-  ${ButtonStyle}
-`;
+// const StyledFlyingButton = styled(FlyingButton)`
+//   ${ButtonStyle}
+// `;
 
 const ProductBox = ({ _id, title, description, price, images }) => {
   const url = "/product/" + _id;
@@ -79,16 +80,9 @@ const ProductBox = ({ _id, title, description, price, images }) => {
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-          <StyledFlyingButton
-            src={images?.[0]}
-            targetTop={"5%"}
-            targetLeft={"95%"}
-            flyingItemStyling={{}}
-          >
-            <Button block onClick={() => addProduct(_id)} primary outline>
-              Add to cart
-            </Button>
-          </StyledFlyingButton>
+          <FlyingButton _id={_id} src={images?.[0]}>
+            Add to Cart
+          </FlyingButton>
         </PriceRow>
       </ProductInfoBox>
     </ProductWrapper>
