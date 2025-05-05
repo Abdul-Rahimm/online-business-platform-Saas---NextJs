@@ -8,6 +8,7 @@ import CartIcon from "./icons/CartIcon";
 import Button from "./Button";
 import { useCart } from "@/providers/CartContext";
 import FlyingButton from "./FlyingButton";
+import { RevealWrapper } from "next-reveal";
 
 const Bg = styled.div`
   background-color: #222;
@@ -85,7 +86,9 @@ const FeaturedProduct = ({ product }) => {
           </Column>
 
           <Column>
+            {/* <RevealWrapper> */}
             <img src={product.images[0]} />
+            {/* </RevealWrapper> */}
           </Column>
         </ColumnsWrapper>
       </Center>
