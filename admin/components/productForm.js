@@ -211,7 +211,7 @@ export default function ProductForm({
         onChange={(event) => setDescription(event.target.value)}
       />
 
-      <label>Price (in USD)</label>
+      <label>Price (in PKR)</label>
       <input
         type="number"
         placeholder="$ Price"
