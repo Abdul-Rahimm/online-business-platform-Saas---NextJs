@@ -1,6 +1,8 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const SearchInput = styled(Input)`
@@ -11,16 +13,29 @@ const SearchInput = styled(Input)`
 `;
 
 export default function SearchPage() {
-  //   const inputRef = useRef();
+  const [phrase, setPhrase] = useState("");
 
-  //   useEffect(() => {}, []);
+  useEffect(() => {
+    if (phrase.length > 0) {
+      axios
+        .get("/api/products?phrase=" + encodeURIComponent(phrase))
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+  }, [phrase]);
 
   return (
     <>
       <Header />
 
       <Center>
-        <SearchInput autoFocus placeholder="Search for products..." />
+        <SearchInput
+          value={phrase}
+          onChange={(ev) => setPhrase(ev.target.value)}
+          autoFocus
+          placeholder="Search for products..."
+        />
       </Center>
     </>
   );
