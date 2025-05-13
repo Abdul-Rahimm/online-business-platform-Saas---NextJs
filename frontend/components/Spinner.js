@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 const Spinner = ({ fullWidth }) => {
   return (
     <Wrapper fullWidth={fullWidth}>
-      <BounceLoader speedMultiplier={3} color={"#555"} />;
+      <BounceLoader speedMultiplier={3} color={"#555"} />
     </Wrapper>
   );
 };
