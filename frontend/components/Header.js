@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Center from "./Center";
 import { useCart } from "@/providers/CartContext";
 import BarsIcon from "./icons/Bars";
+import SearchIcon from "./icons/SearchIcon";
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -50,6 +51,11 @@ const NavLink = styled(Link)`
   color: #aaa;
   text-decoration: none;
   padding: 10px 0;
+  min-width: 20px;
+
+  svg {
+    height: 20px;
+  }
 
   @media screen and (min-width: 768px) {
     padding: 0;
@@ -69,6 +75,19 @@ const NavButton = styled.button`
     display: none;
   }
 `;
+const SideIcons = styled.div`
+  display: flex;
+  align-items: center;
+  a {
+    display: inline-block;
+    min-width: 20px;
+    color: white;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+`;
 
 const Header = () => {
   const { cartProducts } = useCart();
@@ -80,6 +99,7 @@ const Header = () => {
         <Wrapper>
           <Logo href={"/"}>Treats By YI</Logo>
 
+          {/* this will not appear for mobile UI */}
           <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>Products</NavLink>
@@ -88,9 +108,15 @@ const Header = () => {
             <NavLink href={"/cart"}>Cart {cartProducts.length}</NavLink>
           </StyledNav>
 
-          <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-            <BarsIcon />
-          </NavButton>
+          <SideIcons>
+            <NavLink href={"/search"}>
+              <SearchIcon />
+            </NavLink>
+
+            <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+              <BarsIcon />
+            </NavButton>
+          </SideIcons>
         </Wrapper>
       </Center>
     </StyledHeader>
