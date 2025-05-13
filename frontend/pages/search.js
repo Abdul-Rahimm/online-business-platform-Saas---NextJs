@@ -1,8 +1,10 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
+import ProductsGrid from "@/components/ProductsGrid";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { debounce } from "lodash";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const SearchInput = styled(Input)`
@@ -14,16 +16,33 @@ const SearchInput = styled(Input)`
 
 export default function SearchPage() {
   const [phrase, setPhrase] = useState("");
+  const [products, setProducts] = useState([]);
+  const debouncedSearch = useCallback(
+    debounce((phrase) => SearchProducts(phrase), 500),
+    []
+  );
+  // const [debouncedSearch, setDebouncedSearch] = useState(() => {});
 
   useEffect(() => {
     if (phrase.length > 0) {
-      axios
-        .get("/api/products?phrase=" + encodeURIComponent(phrase))
-        .then((res) => {
-          console.log(res.data);
-        });
+      debouncedSearch(phrase);
+    } else {
+      setProducts([]);
     }
   }, [phrase]);
+
+  // useEffect(() => {
+  //   // first mount
+  //   setDebouncedSearch(debounce(SearchProducts, 500));
+  // }, []);
+
+  function SearchProducts(phrase) {
+    axios
+      .get("/api/products?phrase=" + encodeURIComponent(phrase))
+      .then((res) => {
+        setProducts(res.data);
+      });
+  }
 
   return (
     <>
@@ -36,6 +55,7 @@ export default function SearchPage() {
           autoFocus
           placeholder="Search for products..."
         />
+        <ProductsGrid products={products} />
       </Center>
     </>
   );
