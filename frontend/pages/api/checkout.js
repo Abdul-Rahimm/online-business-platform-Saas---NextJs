@@ -63,8 +63,8 @@ export default async function handler(req, res) {
     line_items,
     mode: "payment",
     customer_email: email,
-    success_url: process.env.PUBLIC_URL + "/cart?success=1",
-    cancel_url: process.env.PUBLIC_URL + "/cart?canceled=1",
+    success_url: "https://fyp-client-side.vercel.app/cart?success=1",
+    cancel_url: "https://fyp-client-side.vercel.app/cart?canceled=1",
     metadata: { orderId: orderDocument._id.toString(), test: "ok" },
   });
 
