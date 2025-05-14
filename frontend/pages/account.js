@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Title from "@/components/Title";
 import WhiteBox from "@/components/WhiteBox";
+import axios from "axios";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
@@ -38,6 +39,11 @@ export default function AccountPage() {
 
   async function login() {
     await signIn("google");
+  }
+
+  function saveAddress() {
+    const data = { name, email, city, streetAddress, postalCode, country };
+    axios.put("/api/address", data);
   }
 
   return (
@@ -97,7 +103,7 @@ export default function AccountPage() {
                 name="country"
                 onChange={(ev) => setCountry(ev.target.value)}
               />
-              <Button black block>
+              <Button black block onClick={saveAddress}>
                 Save
               </Button>
               <hr />
