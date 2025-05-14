@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { ButtonStyle } from "./Button";
 import { primary } from "@/lib/colors";
-import FlyingButtonOriginal from "react-flying-item";
 import { useCart } from "@/providers/CartContext";
 
 const FlyingButtonWrapper = styled.div`
