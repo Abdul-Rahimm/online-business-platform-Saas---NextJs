@@ -10,6 +10,10 @@ const GlobalStyles = createGlobalStyle`
     margin:0;
     font-family: 'Poppins', sans-serif;
   }
+  hr{
+    border-color: #eee;
+    background-color: #fff;
+  }
 `;
 
 export default function App({

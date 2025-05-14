@@ -103,8 +103,16 @@ export default function CartPage() {
     if (window?.location.href.includes("success")) {
       setIsSuccess(true);
       clearCart();
-      setProducts([]);
     }
+
+    axios.get("/api/address").then((res) => {
+      setName(res.data.name);
+      setEmail(res.data.email);
+      setCity(res.data.city);
+      setPostalCode(res.data.postalCode);
+      setStreetAddress(res.data.streetAddress);
+      setCountry(res.data.country);
+    });
   }, []);
 
   function moreOfThisProduct(id) {
