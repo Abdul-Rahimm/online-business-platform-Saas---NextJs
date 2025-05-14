@@ -6,7 +6,7 @@ import Title from "@/components/Title";
 import WhiteBox from "@/components/WhiteBox";
 import axios from "axios";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ColsWrapper = styled.div`
@@ -45,6 +45,18 @@ export default function AccountPage() {
     const data = { name, email, city, streetAddress, postalCode, country };
     axios.put("/api/address", data);
   }
+
+  useEffect(() => {
+    //when our app mounts do this
+    axios.get("/api/address").then((res) => {
+      setName(res.data.name);
+      setEmail(res.data.email);
+      setCity(res.data.city);
+      setPostalCode(res.data.postalCode);
+      setStreetAddress(res.data.streetAddress);
+      setCountry(res.data.country);
+    });
+  }, []);
 
   return (
     <>
