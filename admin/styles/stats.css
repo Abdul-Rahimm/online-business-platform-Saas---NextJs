@@ -1,5 +1,5 @@
 .tile {
-  @apply bg-white shadow-md p-4;
+  @apply bg-white shadow-md p-2 text-blue-900 text-center;
 }
 
 .tile-header {
@@ -7,5 +7,9 @@
 }
 
 .tile-number {
-  @apply text-3xl text-center my-2;
+  @apply text-3xl text-center mt-1 font-bold;
+}
+
+.tile-desc {
+  @apply text-xs text-gray-500;
 }
